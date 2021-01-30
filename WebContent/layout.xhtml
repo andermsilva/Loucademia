@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml" 
+		  xmlns:f="http://xmlns.jcp.org/jsf/core"
+		 xmlns:h="http://xmlns.jcp.org/jsf/html"
+		 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		 xmlns:jsf="http://xmlns.jcp.org/jsf"
+		 lang="pt-br">
+	<head jsf="head">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+        <title>Loucademia</title>
+        <link rel="stylesheet" type="text/css" href="css/locademia_Estilo.css"/>
+   </head>
+  <body>
+	<header>
+		<a href="bemvindo.faces"><img alt="" src="images/logo.png"/></a>
+	   <nav >
+		   <div>
+			   <a jsf:outcome="dadosAluno.xhtml"> Novo Aluno </a> <br />
+			   <a  jsf:outcome="pesquisaDeAluno.xhtml?clear=true"> Pesquisa de Aluno </a> <br />
+			   <a  jsf:outcome="controleDeAcesso.xhtml"> Controle de Acesso </a><br />
+			   <a  jsf:outcome="relatoriosDeEntradaSaida.xhtml"> Relatório de Entradas e Saídas </a><br />
+			   <a  jsf:outcome="relatoriosDeSituacao.xhtml?clear=true"> Relatório de Situação </a><br />
+			   
+			   
+		   </div>
+	   </nav>
+     
+   </header>
+      <h1>#{titulo}</h1>
+     <br />
+<!-- Cabeçalho - fim -->	
+ <ui:include src="/messageTop.xhtml"/> 
+ <ui:insert name="conteudo"/>
+
+
+</body>
+</html>

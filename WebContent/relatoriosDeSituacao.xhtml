@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	 lang="pt-br">
+
+<ui:composition template="layout.xhtml">
+     <ui:param name="titulo" value="Relatório de Situação"></ui:param>
+	<ui:define name="conteudo" >
+         <f:metadata>
+	      <f:viewAction  action="#{relatorioSituacaoBean.check}" />
+	  </f:metadata>
+       
+	
+		<form jsf:id="form">
+			<fieldset>
+				<legend>Parametros da pesquisa</legend>
+
+				<label for="situacao">Situações</label> <br />
+				 <select jsf:value="#{relatorioSituacaoBean.situacao}" id="situacao" size="0">
+				   <f:selectItems value="#{dataBean.situacoes}"/>
+
+			   </select>
+
+			</fieldset>
+			<br /> <input type="submit" value="Gerar Relatório" jsf:action="#{relatorioSituacaoBean.gerarRelatorio}" />
+	
+		<h:panelGroup rendered="#{not empty relatorioSituacaoBean.alunos}">
+		
+			<table >
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Situações</th>
+					<th>Celular</th>
+					<th>Fixo</th>
+					<th>Ações</th>
+				</tr>
+				<ui:repeat value="#{relatorioSituacaoBean.alunos}" var="a">
+				<tr>
+					<td>#{a.matricula}</td>
+					<td>#{a.nome}</td>
+					<td>#{a.situacao}</td>
+					<td> #{dataBean.formatarTelefone(a.telefone.dddCelular, a.telefone.numeroCelular)}</td>
+					<td> #{dataBean.formatarTelefone(a.telefone.dddFixo, a.telefone.numeroFixo)}</td>
+					<td><input type="button" value="Editar" jsf:outcome="dadosAluno?matricula=#{a.matricula}" /></td>
+	
+				</tr>
+	          </ui:repeat>
+			</table>
+		</h:panelGroup>
+   </form>
+	</ui:define>
+</ui:composition>
+</html>

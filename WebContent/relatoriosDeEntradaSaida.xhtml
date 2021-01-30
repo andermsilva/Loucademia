@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	 lang="pt-br">
+
+<ui:composition template="layout.xhtml">
+     <ui:param name="titulo" value="Relatório de Entradas e Saídas"></ui:param>
+	<ui:define name="conteudo" > <br />
+   
+    <f:metadata>
+       <f:viewParam name="matricula" value="#{relatorioEntradaSaidaBean.matricula}"/>
+       <f:viewAction action="#{relatorioEntradaSaidaBean.carregarAluno}" />
+    </f:metadata>
+  
+  <form jsf:id="for">
+      <fieldset>
+          <legend>Paramentros de Entradas e Saídas </legend>
+
+          <label for="id">Matricula:</label><br />
+            <input type="text" jsf:value="#{relatorioEntradaSaidaBean.matricula}" id="id"/><br />
+
+            
+          <label for="dataInicial">Data Inicial:</label><br />
+          <input type="date" jsf:value="#{relatorioEntradaSaidaBean.dataInicical}" id="dataInicial">
+          		 <f:converter converterId="convData" />
+          </input>
+            
+          <br />
+
+          <label for="dataFinal">Data Final:</label><br />
+          <input type="date" jsf:value="#{relatorioEntradaSaidaBean.dataFinal}" id="dataFinal">
+          		 <f:converter converterId="convData" />
+          </input>
+         
+          
+          <br />
+            
+            
+      
+      </fieldset>
+       <br />
+
+       <input type="submit" value="Gerar relatórios" jsf:action="#{relatorioEntradaSaidaBean.gerarRelatorio}" />
+  </form>
+      <h:panelGroup rendered="#{not empty relatorioEntradaSaidaBean.acessos}">
+      
+		  <table>
+		    <tr>
+		        <th> ID</th>
+		        <th> Nome</th>
+		        <th> Entrada</th>
+		        <th>Saída</th>
+		        <th> Duração</th>
+		     
+		    </tr>
+		  <ui:repeat var="a" value="#{relatorioEntradaSaidaBean.acessos}">
+		    <tr>
+		        <td>#{a.aluno.matricula}</td>
+		        <td>#{a.aluno.nome}</td>
+		        <td>
+		           <h:outputText value="#{a.entrada}">
+		              <f:converter converterId="convData" />
+		            </h:outputText>
+		          
+		           	
+		        </td>
+		        <td>
+		             <h:outputText value="#{a.saida}"> 
+		               <f:converter converterId="convData" />
+		             </h:outputText>
+		           	
+		           </td>
+		        <td> #{a.calcularDuracao()}</td>
+		       
+		    </tr>
+		</ui:repeat>
+		    
+		   
+		  
+		   
+		  </table>
+      </h:panelGroup>
+
+
+</ui:define>
+</ui:composition>
+</html>

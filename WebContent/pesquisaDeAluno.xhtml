@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" lang="pt-br">
+
+<ui:composition template="layout.xhtml">
+	   <ui:param name="titulo" value="pesquisa de Aluno"></ui:param>
+	<ui:define name="conteudo">
+	  <f:metadata>
+	      <f:viewAction  action="#{pesquisaAlunoBean.check}" />
+	  </f:metadata>
+
+		<form jsf:id="form">
+			<fieldset>
+				<legend>Paramentros da Pesquisa</legend>
+
+				    <label for="id">Matricula:</label><br /> 
+				    <input type="text" jsf:value="#{pesquisaAlunoBean.matricula}" jsf:label="matricular"	id="id" /><br />
+				  
+				    <label for="nome">Nome:</label><br />
+				    <input	type="text" jsf:value="#{pesquisaAlunoBean.nome}" id="nome" jsf:label="Nome" /><br />
+					
+					 <label for="rg">RG:</label><br />
+				     <input type="text" jsf:value="#{pesquisaAlunoBean.rg}" id="rg" jsf:label="RG" /><br />
+				   
+				    <label	for="TelefoneDDD"> Telefone:</label> <br />
+					<input type="tel" jsf:value="#{pesquisaAlunoBean.telefone}" id="telefoneNumero" jsf:label="Telefone"/>
+					
+
+			</fieldset>
+			<br />
+			 <input type="submit" value="Pesquisar" jsf:action="#{pesquisaAlunoBean.pesquisar}" />
+		
+		
+		<h:panelGroup rendered="#{not empty pesquisaAlunoBean.alunos}">
+			<table>
+				
+				<tr>
+					<th>Matricula</th>
+					<th>Nome</th>
+					<th>RG</th>
+					<th>Telefone</th>
+					<th>E-mail</th>
+					<th>Situação</th>
+					<th>Ações</th>
+				</tr>
+			 <ui:repeat var="a" value="#{pesquisaAlunoBean.alunos}">
+			 
+				<tr>
+					<td>#{a.matricula}</td>
+					<td>#{a.nome}</td>
+					<td>#{a.rg}</td>
+					<td>
+					
+					   #{dataBean.formatarTelefone(a.telefone.dddCelular, a.telefone.numeroCelular)} <br />
+					   
+					     #{dataBean.formatarTelefone(a.telefone.dddFixo, a.telefone.numeroFixo)} 
+					
+					</td>
+					<td>#{a.email}</td>
+					<td>#{a.situacao}</td>
+					<td>
+					<input type="button" value="Editar" jsf:outcome="dadosAluno?matricula=#{a.matricula}" />&#160;
+					  
+						 <input	type="submit" value="Excluir"
+						     onClick="return confirm('Deseja excluir o Aluno de matricula #{a.matricula}')"
+						  		     jsf:action="#{pesquisaAlunoBean.excluir(a.matricula)}" />
+					  		     
+				    </td>
+				</tr>
+			 </ui:repeat>
+			</table>
+		</h:panelGroup>
+   </form>
+	</ui:define>
+</ui:composition>
+<!-- RodapÃ© inicio -->
+<!-- RodapÃ© Fim -->
+
+</html>
