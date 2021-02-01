@@ -10,3 +10,4 @@ do treino, exibir relatorios de frequencia e situação quanto a mensalidade.
 - CSS
 - MySql (banco de dados)
 - WildFly (servidor JSF)
+- Html
